@@ -1,0 +1,211 @@
+/* === ส่วนที่ 1: การจัดวางและพื้นหลัง (ใหม่) === */
+.app-container {
+  min-height: 100vh; /* ความสูงเต็มหน้าจอ */
+  display: flex;
+  justify-content: center; /* จัดกึ่งกลางแนวนอน */
+  align-items: flex-start; /* จัดให้เริ่มจากด้านบน */
+  padding-top: 50px;
+  transition: background 0.8s ease; /* เอฟเฟกต์เปลี่ยนสีนุ่มๆ */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+}
+
+/* 🎨 Theme สีพื้นหลังตามสภาพอากาศ */
+.app-default { background: linear-gradient(to bottom right, #4facfe, #00f2fe); }
+.app-clear { background: linear-gradient(to bottom right, #FFC371, #FF5F6D); /* ส้ม-ชมพู (แดดจัด) */ }
+.app-clouds { background: linear-gradient(to bottom right, #D7DDE8, #757F9A); /* เทาหม่น (มีเมฆ) */ }
+.app-rain { background: linear-gradient(to bottom right, #3a7bd5, #3a6073); /* น้ำเงินเข้ม (ฝนตก) */ }
+
+
+/* === ส่วนที่ 2: กล่องการ์ดหลัก (นำสไตล์เดิมกลับมา) === */
+.container {
+  background: rgba(255, 255, 255, 0.25); /* สีขาวโปร่งแสง */
+  padding: 2.5rem;
+  border-radius: 25px; /* มุมโค้งมน */
+  text-align: center;
+  width: 350px; /* ความกว้างการ์ด */
+  
+  /* เอฟเฟกต์กระจกเบลอ (Glassmorphism) */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.3);
+  
+  color: white; /* สีตัวอักษร */
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 2rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+
+/* === ส่วนที่ 3: ช่องค้นหาและปุ่ม (ผสมผสานเก่า+ใหม่) === */
+.search-box {
+  display: flex;
+  gap: 10px; /* ระยะห่างระหว่างช่องพิมพ์กับปุ่ม */
+  margin-bottom: 25px;
+}
+
+input {
+  flex: 1; /* ขยายให้เต็มพื้นที่ที่เหลือ */
+  padding: 12px 20px;
+  border-radius: 30px; /* ทำมุมโค้งมนแบบแคปซูล */
+  border: none;
+  font-size: 16px;
+  outline: none; /* ลบขอบสีฟ้าเวลากด */
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  box-shadow: 0 6px 10px rgba(0,0,0,0.2); /* เพิ่มเงาตอนพิมพ์ */
+}
+
+button {
+  width: 48px; /* กำหนดขนาดให้เท่ากันเป็นสี่เหลี่ยมจัตุรัส */
+  height: 48px;
+  border-radius: 50%; /* ทำเป็นปุ่มกลม */
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* เอฟเฟกต์เด้งดึ๋ง */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+button:hover {
+  transform: translateY(-3px) scale(1.1); /* ขยายและลอยขึ้นเมื่อเอาเมาส์ชี้ */
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+/* ปุ่มค้นหา (แว่นขยาย) */
+button:first-of-type { color: #4facfe; }
+
+/* ปุ่ม GPS (สีพิเศษ) */
+.gps-btn {
+  color: #ff6b6b; /* สีแดงอมส้ม */
+}
+
+
+/* === ส่วนที่ 4: การแสดงผลข้อมูลอากาศ (สไตล์เดิม) === */
+.error-msg {
+  background: rgba(255, 71, 87, 0.8); /* สีแดงโปร่งแสง */
+  padding: 12px;
+  border-radius: 12px;
+  color: white;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.weather-card {
+  animation: slideUp 0.6s ease-out; /* เอฟเฟกต์เลื่อนขึ้น */
+}
+
+.weather-icon {
+  width: 130px;
+  height: 130px;
+  /* เพิ่มเงาให้ไอคอนดูมีมิติ */
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+}
+
+.temp {
+  font-size: 5rem; /* ขนาดตัวเลขอุณหภูมิ */
+  font-weight: 700;
+  margin: -15px 0 0 0;
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+  line-height: 1;
+}
+
+.description {
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  font-weight: 500;
+}
+
+/* กรอบรายละเอียดเพิ่มเติมด้านล่าง */
+.details {
+  display: flex;
+  justify-content: space-around; /* จัดให้ห่างกันพอดี */
+  background: rgba(0, 0, 0, 0.15); /* พื้นหลังสีดำจางๆ */
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+}
+
+.detail-item span:last-child {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* คีย์เฟรมสำหรับ Animation */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === ส่วนที่ 5: พยากรณ์อากาศล่วงหน้า 5 วัน (เพิ่มส่วนนี้) === */
+.forecast-container {
+  margin-top: 25px;
+  background: rgba(0, 0, 0, 0.15); /* พื้นหลังสีดำจางๆ แยกส่วนออกมา */
+  border-radius: 20px;
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideUp 0.8s ease-out;
+}
+
+.forecast-container h3 {
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  padding-bottom: 10px;
+  text-align: left; /* จัดหัวข้อชิดซ้าย */
+  font-weight: 500;
+}
+
+.forecast-grid {
+  display: flex;
+  justify-content: space-between; /* กระจาย 5 วันให้เต็มพื้นที่ */
+  gap: 8px;
+}
+
+.forecast-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.1); /* พื้นหลังของแต่ละวัน */
+  padding: 10px 5px;
+  border-radius: 10px;
+  width: 100%; /* ให้ยืดเต็มช่อง */
+  transition: transform 0.2s;
+}
+
+.forecast-item:hover {
+  transform: translateY(-5px); /* ขยับขึ้นเล็กน้อยเมื่อเอาเมาส์ชี้ */
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.forecast-item p {
+  margin: 5px 0;
+}
+
+.forecast-item img {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
