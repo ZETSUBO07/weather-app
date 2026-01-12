@@ -209,3 +209,188 @@ button:first-of-type { color: #4facfe; }
   height: 40px;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
+
+/* === Navbar ด้านล่าง === */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #888;
+  font-size: 0.8rem;
+  transition: 0.3s;
+}
+
+.nav-item span {
+  font-size: 1.5rem;
+  margin-bottom: 2px;
+}
+
+.nav-item.active {
+  color: #4facfe;
+  transform: translateY(-5px);
+}
+
+/* ปรับเนื้อหาไม่ให้โดน Navbar บัง */
+.app-container {
+  padding-bottom: 80px; /* เว้นที่ด้านล่าง */
+  display: block; /* แก้ flex เดิม */
+}
+
+.top-section {
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.content-area {
+  padding: 0 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* หน้า Settings */
+.setting-item {
+  background: rgba(255,255,255,0.2);
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+}
+
+.unit-toggle {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.unit-toggle button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+}
+
+.unit-toggle button.active-unit {
+  background: #4facfe;
+  color: white;
+  font-weight: bold;
+}
+
+/* === CSS จัดระเบียบรายการพยากรณ์ === */
+.forecast-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* ระยะห่างระหว่างบรรทัด */
+    padding-bottom: 20px;
+}
+  
+.forecast-item {
+    display: flex; /* เรียงของให้อยู่ในบรรทัดเดียวกัน */
+    align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    justify-content: space-between; /* กระจายซ้าย-ขวาให้สวยงาม */
+    
+    background: rgba(0,0,0,0.2); /* พื้นหลังสีดำจางๆ */
+    padding: 10px 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    transition: transform 0.2s;
+}
+  
+.forecast-item:hover {
+    transform: scale(1.02); /* ขยายขึ้นนิดหน่อยเมื่อเอาเมาส์ชี้ */
+    background: rgba(0,0,0,0.3);
+}
+  
+/* ส่วนเวลา (ซ้ายสุด) */
+.forecast-time {
+    flex: 1; /* ให้กินพื้นที่ส่วนหนึ่ง */
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+  
+/* ส่วนไอคอน (ตรงกลาง) - ตัวการสำคัญ! */
+.forecast-icon-container {
+    flex: 0 0 50px; /* ล็อกความกว้างไว้ที่ 50px ไม่ให้ขยายเกิน */
+    display: flex;
+    justify-content: center;
+    margin: 0 15px; /* เว้นระยะซ้ายขวาไม่ให้เบียดคนอื่น */
+}
+  
+.forecast-icon-container img {
+    width: 50px;  /* บังคับขนาดรูป */
+    height: 50px;
+    object-fit: contain; /* รูปจะไม่เบี้ยว */
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2)); /* ใส่เงาให้ไอคอนเด้งขึ้นมา */
+}
+  
+/* ส่วนอุณหภูมิ (ขวาสุด) */
+.forecast-temp {
+    flex: 1;
+    text-align: right;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffeb3b; /* สีเหลืองเด่นๆ */
+}
+
+/* === แก้ไขการ์ดสภาพอากาศหลัก (ใบใหญ่) === */
+.weather-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* ป้องกันไม่ให้การ์ดขยายเกินจอ */
+  max-width: 100%; 
+}
+
+/* ☁️ จัดการรูปไอคอนให้ขนาดพอดี และไม่ทับตัวหนังสือ */
+.weather-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: -10px; /* ดึงระยะขึ้นนิดหน่อยถ้าห่างไป */
+}
+
+.weather-icon img {
+  width: 150px; /* 👈 บังคับขนาดรูปไม่ให้ใหญ่เกินไป */
+  height: 150px;
+  object-fit: contain;
+  /* เพิ่มเงาให้รูปลอยสวยๆ */
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3)); 
+}
+
+/* 🌡️ จัดตัวเลขอุณหภูมิ */
+.temp {
+  font-size: 4rem; /* ตัวเลขใหญ่สะใจ */
+  font-weight: bold;
+  margin: 0; /* ลบระยะขอบที่เกินมา */
+  line-height: 1; /* ลดระยะห่างบรรทัด */
+  z-index: 10; /* สั่งให้ตัวเลขลอยอยู่เหนือรูป (ถ้ามันเผลอทับกัน) */
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+}
+
+/* ข้อความสภาพอากาศ (เช่น เมฆเต็มท้องฟ้า) */
+.description {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}

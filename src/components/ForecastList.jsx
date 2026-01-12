@@ -1,25 +1,35 @@
 import React from 'react';
 
 function ForecastList({ forecast }) {
-  // กรองข้อมูล: หยิบทุกๆ 8 รายการ (8 * 3ชม. = 24ชม. คือ 1 วันพอดี)
-  // เพื่อให้ได้พยากรณ์ของวันถัดๆ ไป
-  const dailyForecast = forecast.list.filter((reading, index) => index % 8 === 0).slice(0, 5);
+  // 👇 ส่วนที่หายไปคือบรรทัดนี้ครับ (มันคือตัวดึงข้อมูล 8 ช่วงเวลา)
+  const next24Hours = forecast.list.slice(0, 8); 
 
   return (
-    <div className="forecast-container">
-      <h3>พยากรณ์ล่วงหน้า 5 วัน</h3>
-      <div className="forecast-grid">
-        {dailyForecast.map((day, index) => (
+    <div className="forecast-list-container" style={{ marginTop: '30px' }}>
+      <h3 style={{ marginLeft: '10px', marginBottom: '15px' }}>พยากรณ์ล่วงหน้า (3 ชั่วโมง) 🕒</h3>
+      
+      <div className="forecast-list">
+        {next24Hours.map((item, index) => (
           <div key={index} className="forecast-item">
-            {/* แปลงวันที่เป็นชื่อวันย่อ (จ., อ., พ.) */}
-            <p>{new Date(day.dt * 1000).toLocaleDateString('th-TH', { weekday: 'short' })}</p>
             
-            <img 
-              src={`https://openweathermap.org/img/wn/${day.weather[0].icon}.png`} 
-              alt="icon" 
-            />
+            {/* 1. เวลา */}
+            <span className="forecast-time">
+              {new Date(item.dt * 1000).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })}
+            </span>
             
-            <p>{Math.round(day.main.temp)}°C</p>
+            {/* 2. ไอคอน (ใส่กล่อง div หุ้มเพื่อจัดระเบียบ) */}
+            <div className="forecast-icon-container">
+              <img 
+                src={`https://openweathermap.org/img/wn/${item.weather[0].icon}.png`} 
+                alt={item.weather[0].description} 
+              />
+            </div>
+            
+            {/* 3. อุณหภูมิ */}
+            <span className="forecast-temp">
+              {Math.round(item.main.temp)}°
+            </span>
+            
           </div>
         ))}
       </div>
